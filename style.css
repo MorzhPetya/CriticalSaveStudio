@@ -45,11 +45,13 @@ header p {
 
 section {
   margin-bottom: 40px;
-  padding: 25px;
+  padding: 30px;
   background: #1f1f1f;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   border: 1px solid #333;
+  position: relative;
+  isolation: isolate;
 
   /* Анимация появления */
   opacity: 0;
@@ -64,9 +66,104 @@ section.visible {
 
 section h2 {
   color: #bb86fc;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
+
+/* Секция "О нас" — улучшенная */
+.about {
+  text-align: center;
+  position: relative;
+  padding: 40px 30px;
+  background: #1a1a2a;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  border: 1px solid #333;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Неоновая полоса сверху */
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 5px;
+  background: linear-gradient(90deg, #bb86fc, #00e0ff, #bb86fc);
+  border-radius: 5px 5px 0 0;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+/* Заголовок с иконкой */
+.about-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-icon {
+  font-size: 1.6em;
+  animation: floatIcon 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 5px #bb86fc);
+}
+
+/* Текст */
+.about-content {
+  color: #ddd;
+  font-size: 1.05em;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+  position: relative;
+  z-index: 2;
+}
+
+.about-content strong {
+  color: #bb86fc;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(187, 134, 252, 0.4);
+}
+
+/* Анимации */
+@keyframes pulseGlow {
+  0% { opacity: 0.6; transform: scaleX(0.9); }
+  100% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Маленькие искры в фоне */
+.about::after {
+  content: '';
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 4px; height: 4px;
+  background: #00e0ff;
+  border-radius: 50%;
+  box-shadow: 
+    10px 20px 0 2px #bb86fc,
+    20px 10px 0 1px #00e0ff,
+    30px 30px 0 1px #bb86fc;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.highlight {
+  color: #bb86fc;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(187, 134, 252, 0.4);
+}
+
 
 /* Контейнер для карточек */
 .members .cards {
@@ -76,6 +173,61 @@ section h2 {
   justify-content: center;
   padding: 10px;
 }
+
+.members {
+  background: #1a1e24;
+  border: 1px solid #4a6fa5;
+}
+
+.members::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 5px;
+  background: linear-gradient(90deg, #4a6fa5, #3a86ff, #4a6fa5);
+  border-radius: 5px 5px 0 0;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+.members::after {
+  content: '👥';
+  position: absolute;
+  bottom: 15px; left: 15px;
+  font-size: 1.2em;
+  opacity: 0.3;
+  z-index: 1;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+.projects {
+  background: #161f2a;
+  border: 1px solid #44aaff;
+}
+
+.projects::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 5px;
+  background: linear-gradient(90deg, #44aaff, #00e0ff, #44aaff);
+  border-radius: 5px 5px 0 0;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+  animation-duration: 2.5s;
+  z-index: 1;
+}
+
+.projects::after {
+  content: '🧊';
+  position: absolute;
+  bottom: 15px; right: 15px;
+  font-size: 1.2em;
+  opacity: 0.3;
+  z-index: 1;
+  animation: float 6s ease-in-out infinite;
+}
+
+
 
 /* Основная карточка — обёртка */
 .card {
@@ -227,7 +379,7 @@ section h2 {
 
 @keyframes float {
   0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(1deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
 
@@ -238,6 +390,60 @@ section h2 {
   gap: 10px;
   justify-content: center;
 }
+
+.tech {
+  background: #18221a;
+  border: 1px solid #4caf50;
+}
+
+.tech::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 5px;
+  background: linear-gradient(90deg, #4caf50, #a5d66c, #4caf50);
+  border-radius: 5px 5px 0 0;
+  animation: pulseGlow 1.5s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+.contact {
+  background: #1e1a2a;
+  border: 1px solid #bb86fc;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 5px;
+  background: linear-gradient(90deg, #bb86fc, #03dac6, #bb86fc);
+  border-radius: 5px 5px 0 0;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+.contact::after {
+  content: '📡';
+  position: absolute;
+  bottom: 15px; right: 15px;
+  font-size: 1.2em;
+  opacity: 0.3;
+  z-index: 1;
+  animation: float 4s ease-in-out infinite;
+}
+
+
+.tech::after {
+  content: '⚡';
+  position: absolute;
+  bottom: 15px; left: 15px;
+  font-size: 1.2em;
+  opacity: 0.4;
+  z-index: 1;
+  animation: pulseGlow 1.5s ease-in-out infinite alternate;
+}
+
 
 .badge {
   background: #0077cc;
