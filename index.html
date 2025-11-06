@@ -6,6 +6,7 @@
   <title>CriticalSave Studio</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <header>
@@ -97,13 +98,62 @@
     <a href="https://discord.gg/uZj6vzshkg" target="_blank" class="social">🎮 Discord</a>
     <a href="https://t.me/ваш-канал" target="_blank" class="social">✉️ Telegram</a>
   </div>
+    <div class="contact-actions">
+    <button id="open-contact-btn" class="btn btn-primary">Отправить обращение</button>
+  </div>
   </section>
+
+    <!-- Developer Console -->
+  <div id="dev-console">
+    <div class="console-header">
+      <span>Developer Console</span>
+      <button id="console-close">✕</button>
+    </div>
+    <div id="console-output" class="console-output"></div>
+    <div class="console-input">
+      <span>&gt;</span>
+      <input type="text" id="console-input" placeholder="Введите команду..." autocomplete="off" />
+    </div>
+  </div>
+
 
   <footer>
     <p>Сделано с ❤️ на GitHub</p>
   </footer>
 
   <div id="particles"></div>
+   <!-- Модальное окно -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <h3>Написать нам</h3>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">Имя</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="subject">Тема</label>
+          <select id="subject" name="subject" required>
+            <option value="" disabled selected>Выберите тему</option>
+            <option value="Предложение">Предложение</option>
+            <option value="Ошибка">Сообщить об ошибке</option>
+            <option value="Сотрудничество">Сотрудничество</option>
+            <option value="Другое">Другое</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Сообщение</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    </div>
+  </div>
   <script src="script.js" defer></script>
 </body>
 </html>
