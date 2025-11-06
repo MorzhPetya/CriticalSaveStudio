@@ -550,24 +550,12 @@ section h2 {
   box-shadow: 0 0 20px rgba(187, 134, 252, 0.6);
 }
 
-/* Эффект мерцания (глитч) */
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.1s;
+/* Убираем глитч-анимацию со всех кнопок, кроме .btn-disabled */
+.btn::before,
+.btn:hover::before {
+  display: none !important;
 }
 
-.btn:hover::before {
-  opacity: 1;
-  animation: glitchMist 0.3s infinite;
-}
 
 /* Основная анимация — мерцание и шум */
 @keyframes glitchMist {
@@ -902,5 +890,351 @@ footer a:hover {
 
   .card {
     width: 160px;              /* Меньше карточки участников */
+  }
+}
+
+/* === Developer Console Styles === */
+#dev-console {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 600px;
+  max-width: 90vw;
+  height: 300px;
+  max-height: 70vh;
+  background: #1e1e1e;
+  border: 1px solid #3a3a3a;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 224, 255, 0.3);
+  font-family: 'Courier New', monospace;
+  color: #0f0;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+#dev-console.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.console-header {
+  background: #2a2a2a;
+  padding: 10px 15px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3a3a3a;
+  user-select: none;
+}
+
+#console-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  padding: 0;
+}
+
+#console-close:hover {
+  color: #f00;
+}
+
+.console-output {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #111;
+  white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.console-input {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  background: #252525;
+  border-top: 1px solid #3a3a3a;
+}
+
+.console-input span {
+  color: #0f0;
+  margin-right: 8px;
+}
+
+#console-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #0f0;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  padding: 2px 0;
+}
+
+#console-input::placeholder {
+  color: #0a0a0a;
+}
+
+/* Скрываем при маленьком экране */
+@media (max-width: 600px) {
+  #dev-console {
+    width: 90vw;
+    height: 200px;
+    right: 5%;
+    bottom: 10px;
+  }
+}
+
+/* --- ЭФФЕКТ ВЗЛОМА --- */
+#hack-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  padding: 20px;
+  z-index: 99999;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.2s;
+  overflow: hidden;
+}
+
+#hack-overlay.active {
+  opacity: 1;
+}
+
+#hack-content {
+  white-space: pre;
+  line-height: 1.4;
+}
+
+/* Шум и мерцание */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+#hack-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 0, 0.05),
+    rgba(0, 255, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 1;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+  opacity: 0.3;
+}
+
+#hack-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 50%, 52%, 54%, 56%, 58%, 100% {
+    opacity: 0.9;
+  }
+  20%, 22%, 24%, 51%, 53%, 55%, 57% {
+    opacity: 0.3;
+  }
+}
+
+/* === КНОПКА И ФОРМА ОБРАТНОЙ СВЯЗИ === */
+
+.contact-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #bb86fc, #00e0ff);
+  color: #121212;
+  font-weight: bold;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(187, 134, 252, 0.5);
+}
+
+/* === МОДАЛЬНОЕ ОКНО — ЦЕНТР + БЛЮР === */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* Для Safari */
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  display: flex;
+}
+
+.modal-content {
+  background: #1f1f2f;
+  padding: 32px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  color: #e0e0e0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(187, 134, 252, 0.2);
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+  animation: modalFadeIn 0.4s ease forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.close:hover {
+  color: #bb86fc;
+}
+
+@keyframes modalFadeOut {
+  from {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+}
+
+.modal.closing .modal-content {
+  animation: modalFadeOut 0.3s ease forwards;
+}
+
+
+.modal h3 {
+  color: #bb86fc;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #ccc;
+  font-size: 0.9em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #2d2d2d;
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #bb86fc;
+  box-shadow: 0 0 10px rgba(187, 134, 252, 0.2);
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 0.95em;
+  }
+
+  .close {
+    font-size: 20px;
   }
 }
