@@ -238,6 +238,54 @@ section h2 {
   overflow: hidden; /* Контролируем переполнение */
 }
 
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
+  body {
+    padding: 15px; /* Уменьшаем общий отступ */
+  }
+
+  section {
+    padding: 20px; /* Меньше отступов в секциях */
+  }
+
+  .projects .projects-card {
+    padding: 60px 15px 50px; /* Уменьшаем верх/низ и боковые отступы */
+    max-width: 100%;           /* Занимает всю ширину */
+    border-radius: 10px;       /* Лёгкое смягчение углов */
+  }
+
+  .projects .projects-card h3 {
+    font-size: 1.4em;          /* Чуть меньше заголовок */
+  }
+
+  .projects .projects-card p {
+    font-size: 0.9em;          /* Компактный текст */
+  }
+
+  .btn {
+    padding: 10px 16px;        /* Компактная кнопка */
+    font-size: 0.95em;
+  }
+
+  .logo {
+    font-size: 2.3em;          /* Логотип не должен быть огромным */
+  }
+
+  header p {
+    font-size: 0.9em;
+  }
+
+  .members .cards {
+    gap: 15px;
+    padding: 10px 5px;
+  }
+
+  .card {
+    width: 160px;              /* Меньше карточки участников */
+  }
+}
+
+
 /* Оверлей — полупрозрачная маска над фоном (для читаемости текста) */
 .projects .projects-card::before {
   content: '';
