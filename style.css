@@ -89,6 +89,10 @@ section h2 {
   transform-style: preserve-3d; /* Включаем 3D-пространство */
   position: relative;
   animation: float 6s ease-in-out infinite;
+  /* Добавим отступы вокруг для 3D-поворота */
+  transform: translateZ(0);
+  /* Увеличим "глубину прорисовки" */
+  will-change: transform;
 }
 
 /* Внутренний контейнер — то, что поворачивается */
@@ -104,10 +108,12 @@ section h2 {
   transition: transform 0.6s ease;
   transform-style: preserve-3d; /* Ключевое: сохраняем 3D */
   z-index: 2;
+    /* Добавим тень, чтобы при подъёме было объёмнее */
+  transform: translateZ(0);
 }
 
 .card:hover .card-inner {
-  transform: rotateX(10deg) rotateY(10deg);
+  transform: rotateX(10deg) rotateY(10deg) translateZ(5px);
 }
 
 /* Задняя плоскость — чтобы не было "провала" */
@@ -142,6 +148,7 @@ section h2 {
 
 .card:hover::before {
   opacity: 1;
+  z-index: 3;
 }
 
 /* Аватарка и текст */
@@ -167,12 +174,19 @@ section h2 {
   transition: transform 0.3s;
 }
 
+/* Бейдж с ролью — стильный тег */
 .card p {
   color: #bbb;
   font-size: 0.9em;
   margin-bottom: 8px;
   transform: translateZ(15px);
   transition: transform 0.3s;
+  padding: 4px 10px;
+  background: rgba(187, 134, 252, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(187, 134, 252, 0.2);
+  display: inline-block;
+  margin-top: 10px;
 }
 
 .card a, .card .no-link {
@@ -182,14 +196,33 @@ section h2 {
   transition: transform 0.3s;
 }
 
+/* Красивый @ в нике */
 .card a {
+  display: inline-block;
+  margin-top: 6px;
   color: #bb86fc;
   text-decoration: none;
   font-weight: bold;
+  font-size: 0.95em;
+  padding: 4px 10px;
+  background: rgba(187, 134, 252, 0.15);
+  border-radius: 8px;
+  transition: all 0.3s;
 }
 
+.card p,
+.card a,
+.card h3 {
+  /* Гарантируем, что не обрежутся при повороте */
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  /* Чтобы не исчезали с обратной стороны */
+}
+
+
 .card a:hover {
-  text-decoration: underline;
+  background: rgba(187, 134, 252, 0.3);
+  transform: scale(1.05);
 }
 
 @keyframes float {
@@ -588,6 +621,36 @@ footer a:hover {
   transform: none;
   box-shadow: none;
 }
+
+/* Иконки перед ролями */
+.icon {
+  margin-right: 6px;
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+
+/* Корона — над карточкой, не вращается с ней */
+.crown {
+  position: absolute;
+  top: -15px;
+  right: 10px;
+  font-size: 1.8em;
+  z-index: 4; /* Выше всех слоёв */
+  animation: floatCrown 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
+  pointer-events: none; /* Чтобы не мешала кликам */
+  /* Фиксируем относительно .card */
+  transform: translateZ(100px); /* "Выносим" вперёд, чтобы точно не обрезалось */
+}
+
+
+/* Анимация короны */
+@keyframes floatCrown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+
 
 /* Адаптивность для мобильных */
 @media (max-width: 600px) {
