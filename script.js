@@ -568,5 +568,83 @@ document.querySelectorAll('.card').forEach(card => {
   });
 })();
 
+async function checkDevStatus(username, elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  // Установим начальный текст
+  el.textContent = '🔍 Проверка...';
+  el.classList.remove('online', 'idle', 'offline');
+  el.removeAttribute('title'); // ← убираем title, чтобы не мешал
+
+  // Таймаут: если больше 5 сек — показать "Нет данных"
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() => reject(new Error('timeout')), 5000);
+  });
+
+  try {
+    const fetchPromise = fetch(`https://api.github.com/users/${username}/events`, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+
+    const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+    if (!response.ok) throw new Error('Network error');
+
+    const events = await response.json();
+    const relevantTypes = ['PushEvent', 'PullRequestEvent', 'IssuesEvent', 'CreateEvent'];
+    const recent = events.find(e => relevantTypes.includes(e.type));
+
+    if (!recent) {
+      el.textContent = '🔴 Нет активности';
+      el.classList.add('offline');
+      el.setAttribute('data-title', 'Нет записей о последних действиях');
+      return;
+    }
+
+    const eventTime = new Date(recent.created_at);
+    const hoursAgo = (Date.now() - eventTime.getTime()) / (1000 * 60 * 60);
+
+    const formatted = eventTime.toLocaleString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    el.setAttribute('data-title', `Последнее действие: ${formatted}`); // ← используем data-title
+
+    if (hoursAgo < 1) {
+      el.textContent = '🟢 Активен';
+      el.classList.add('online');
+    } else if (hoursAgo < 24) {
+      el.textContent = `🟡 ${Math.floor(hoursAgo)} ч назад`;
+      el.classList.add('idle');
+    } else {
+      el.textContent = `🔴 ${Math.floor(hoursAgo / 24)} дн`;
+      el.classList.add('offline');
+    }
+  } catch (err) {
+    if (err.message === 'timeout') {
+      el.textContent = '❌ Нет данных';
+    } else {
+      el.textContent = '⚠️ Ошибка';
+    }
+    el.classList.add('offline');
+    el.setAttribute('data-title', 'Не удалось получить данные. Возможно, GitHub API недоступен или лимит запросов исчерпан.');
+  }
+}
+
+
+
+// Запуск после загрузки DOM
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    checkDevStatus('MorzhPetya', 'status-MorzhPetya');
+    checkDevStatus('Wellvvetq', 'status-Wellvvetq');
+    checkDevStatus('Fellcrazyman', 'status-fellcrazyman');
+  }, 15);
+});
 
 
