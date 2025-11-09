@@ -97,22 +97,125 @@ section h2 {
   z-index: 1;
 }
 
-/* Заголовок с иконкой */
+/* === КРУГЛОЕ ФОТО СТУДИИ С КИБЕР-ЭФФЕКТАМИ === */
+.about-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  /* Вращающийся градиент */
+  background: linear-gradient(90deg, #bb86fc, #00e0ff, #bb86fc);
+  background-size: 200% 200%;
+  animation: gradientRotate 4s linear infinite, floatIcon 3s ease-in-out infinite;
+  padding: 2px;
+  box-shadow: 0 0 10px rgba(187, 134, 252, 0.2);
+  border-radius: 50%;
+}
+/* Вращение градиента */
+@keyframes gradientRotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Обёртка для внутреннего содержимого */
+.about-icon::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #1a1a2a; /* Фон внутри рамки */
+  z-index: 1;
+}
+
+/* Само изображение */
+.about-icon img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Масштаб при наведении */
+.about-icon:hover img {
+  transform: scale(1.15);
+}
+
+/* Свечение — пульсация */
+.about-icon::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(187, 134, 252, 0.4),
+              0 0 25px rgba(187, 134, 252, 0.2);
+  opacity: 0.7;
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.5;
+    box-shadow: 0 0 10px rgba(187, 134, 252, 0.3),
+                0 0 15px rgba(187, 134, 252, 0.1);
+  }
+  100% {
+    opacity: 0.9;
+    box-shadow: 0 0 15px rgba(187, 134, 252, 0.5),
+                0 0 30px rgba(187, 134, 252, 0.4),
+                0 0 40px rgba(0, 224, 255, 0.3);
+  }
+}
+
+
+/* === АНИМАЦИЯ "ЗАГРУЗКИ" ПРИ ОТКРЫТИИ СТРАНИЦЫ === */
+.about-icon img {
+  opacity: 0;
+  animation: fadeInImage 0.8s ease 0.6s forwards;
+}
+
+@keyframes fadeInImage {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Заголовок "О нас" с иконкой — в строку, по центру */
 .about-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 20px;
-  position: relative;
-  z-index: 2;
+  text-align: center;
 }
 
-.about-icon {
-  font-size: 1.6em;
-  animation: floatIcon 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 5px #bb86fc);
+.about-header h2 {
+  margin: 0;
+  color: #bb86fc;
+  font-size: 1.8em;
+  white-space: nowrap;
 }
+
 
 /* Текст */
 .about-content {
@@ -739,9 +842,9 @@ footer a:hover {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-radius: 12px;
   z-index: 2;
   opacity: 0;
@@ -759,12 +862,12 @@ footer a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ff6b6b;
+  color: #6b9fff;
   font-weight: bold;
   font-size: 1.7em;
   text-shadow: 
     0 0 5px rgba(0, 0, 0, 0.8),
-    0 0 15px rgba(255, 107, 107, 0.5);
+    0 0 15px rgba(107, 147, 255, 0.5);
   z-index: 3;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -774,10 +877,40 @@ footer a:hover {
   font-family: 'Roboto', sans-serif;
 }
 
+/* === НОВАЯ ДАТА — ПОЯВЛЯЕТСЯ ПОД СТАТУСОМ === */
+.project-date {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(26, 37, 57, 0.9);
+  color: #8bd9ff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid rgba(139, 217, 255, 0.3);
+  box-shadow: 0 0 10px rgba(139, 217, 255, 0.2);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateX(-50%) translateY(10px);
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
 /* Показываем при наведении */
 .projects-card-wrapper:hover .projects-card::after,
-.projects-card-wrapper:hover .frozen-badge {
+.projects-card-wrapper:hover .frozen-badge,
+.projects-card-wrapper:hover .project-date {
   opacity: 1;
+}
+
+.projects-card-wrapper:hover .project-date {
+  transform: translateX(-50%) translateY(0);
 }
 
 
