@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Список команд (остаётся прежним, но недоступен без доступа)
   const commands = {
-    help: () => log('Доступные команды: help, clear, info, konami, cls'),
+    help: () => log('Доступные команды: help, clear (cls), info, konami, cls, github, debug, echo'),
     clear: () => {
       consoleOutput.innerHTML = '';
       log('Консоль очищена.');
@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
       log(`> ${input}`);
 
       // Проверяем, введена ли команда для доступа
-      if (input.toLowerCase() === 'admin level access') {
+      if (input.toLowerCase() === '-devmode') {
         commands['admin level access']();
         consoleInput.value = '';
         return;
