@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Девлог Project Liana — CriticalSave Studio</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Подключение Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="scripts/supabase-config.js" defer></script>
+    <script src="scripts/auth.js" defer></script>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo" style="text-decoration: none;">CriticalSave Studio</a>
+            <nav class="navigation">
+                <a href="index.html#about" class="nav-link">Об игре</a>
+                <a href="index.html#team" class="nav-link">Команда</a>
+                <a href="wiki.html" class="nav-link">Вики игры</a>
+                <a href="devlog.html" class="nav-link" style="color: var(--accent);">Девлог</a>
+            </nav>
+            <div id="auth-container"></div>
+        </div>
+    </header>
+
+    <main class="devlog-main">
+        <section class="devlog-hero">
+            <div class="container">
+                <h1 class="devlog-title-page">Блог разработки</h1>
+                <p class="devlog-subtitle-page">Следите за созданием Project Liana. Здесь мы делимся процессом моделирования, программирования и геймдизайна.</p>
+            </div>
+        </section>
+
+        <!-- Скрытая панель публикации (видна только владельцам) -->
+        <section id="devlog-admin-section" class="devlog-admin-section" style="display: none;">
+            <div class="container">
+                <div class="admin-form-card">
+                    <h2 class="admin-form-title">Опубликовать новый девлог</h2>
+                    <form id="add-devlog-form">
+                        <div class="form-group">
+                            <label for="post-title">Заголовок статьи</label>
+                            <input type="text" id="post-title" required placeholder="Например: Девлог #3: Новая система боя">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-tag">Тег статьи</label>
+                            <select id="post-tag" required>
+                                <option value="Обновление">Обновление</option>
+                                <option value="Анонс">Анонс</option>
+                                <option value="Геймдизайн">Геймдизайн</option>
+                                <option value="3D-Модели">3D-Модели</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-content">Текст статьи (абзацы разделяйте переносом строки)</label>
+                            <textarea id="post-content" rows="6" required placeholder="Напишите здесь детали обновления вашей игры..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="border: none;">Опубликовать в блог</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Список записей блога (загружается динамически) -->
+        <section class="devlog-content">
+            <div class="container devlog-container" id="devlog-posts-container">
+                <div class="loading-spinner">Загрузка постов из базы данных...</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 CriticalSave Studio. Все права сохранены. Разработка игры Project Liana.</p>
+        </div>
+    </footer>
+
+    <!-- Подключаем скрипт обработки девлогов -->
+    <script src="scripts/devlog.js" defer></script>
+</body>
+</html>

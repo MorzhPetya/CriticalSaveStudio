@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Liana — RTS от CriticalSave Studio</title>
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Подключение Supabase SDK с серверов CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Подключение нашей конфигурации -->
+    <script src="scripts/supabase-config.js" defer></script>
+    <!-- Подключение логики авторизации -->
+    <script src="scripts/auth.js" defer></script>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">CriticalSave Studio</div>
+            <nav class="navigation">
+                <a href="#about" class="nav-link">Об игре</a>
+                <a href="#team" class="nav-link">Команда</a>
+                <a href="wiki.html" class="nav-link">Вики игры</a>
+                <a href="devlog.html" class="nav-link">Девлог</a> <!-- Ссылка на девлог -->
+            </nav>
+            <div id="auth-container"></div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Главный экран (Hero Section) -->
+        <section class="hero-section" id="about">
+            <div class="container hero-container">
+                <span class="status-badge">Project Liana — В разработке</span>
+                <h1 class="hero-title">RTS стратегия в Roblox</h1>
+                <p class="hero-subtitle">
+                    Стройте фермы для добычи золота, нанимайте армии и сражайтесь за доминирование на карте. 
+                    Project Liana переносит классический геймплей стратегий реального времени на платформу Roblox.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://discord.gg/yVQrsWpQrC" target="_blank" class="btn btn-primary">Присоединиться к разработке в Discord</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Раздел: Наша команда -->
+        <section class="team-section" id="team">
+            <div class="container">
+                <h2 class="section-title">Наша команда</h2>
+                <p class="section-subtitle">Мы — основатели CriticalSave Studio, создающие Project Liana с нуля.</p>
+                
+                <div class="team-grid">
+                    <!-- Карточка 1-го участника (Владелец студии) -->
+                    <div class="team-card" data-user-id="935be9e8-529f-4461-ab8b-412253680ace">
+                        <div class="member-avatar">
+                            <div class="avatar-placeholder">CS</div>
+                        </div>
+                        <h3 class="member-name">Загрузка...</h3>
+                                                <!-- Плашка Дискорда -->
+                        <div class="member-discord">
+                            <svg class="discord-icon" viewBox="0 0 127.14 96.36" fill="currentColor">
+                                <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.4-5c.87-.64,1.71-1.32,2.51-2a75.7,75.7,0,0,0,72.6,0c.8.71,1.64,1.39,2.51,2a68.43,68.43,0,0,1-10.4,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129.87,50.85,124,28.06,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                            </svg>
+                            <span>l0mkasocool</span>
+                        </div>
+                        <p class="member-role">Владелец студии / Ведущий разработчик</p>
+                        <p class="member-desc">Основатель CriticalSave Studio. Отвечает за общую координацию проекта, разработку игровой логики, сетевого кода и механик RTS.</p>
+                    </div>
+
+                    <!-- Карточка 2-го участника (Владелец игры) -->
+                    <div class="team-card">
+                        <div class="member-avatar">
+                            <div class="avatar-placeholder">PL</div>
+                        </div>
+                        <h3 class="member-name">Загрузка...</h3>
+                                                <!-- Плашка Дискорда -->
+                        <div class="member-discord">
+                            <svg class="discord-icon" viewBox="0 0 127.14 96.36" fill="currentColor">
+                                <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.4-5c.87-.64,1.71-1.32,2.51-2a75.7,75.7,0,0,0,72.6,0c.8.71,1.64,1.39,2.51,2a68.43,68.43,0,0,1-10.4,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129.87,50.85,124,28.06,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                            </svg>
+                            <span>platinum9584</span>
+                        </div>
+                        <p class="member-role">Владелец игры / Геймдизайнер / 3D-Моделлер</p>
+                        <p class="member-desc">Идейный вдохновитель Project Liana. Занимается визуальным стилем, созданием 3D-моделей зданий и юнитов, а также балансировкой экономики.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 CriticalSave Studio. Все права сохранены. Разработка игры Project Liana.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/team.js?v=4" defer></script>
+</body>
+</html>

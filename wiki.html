@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вики Project Liana — CriticalSave Studio</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Подключение Supabase SDK с серверов CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Подключение нашей конфигурации -->
+    <script src="scripts/supabase-config.js" defer></script>
+    <!-- Подключение логики авторизации -->
+    <script src="scripts/auth.js" defer></script>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo" style="text-decoration: none;">CriticalSave Studio</a>
+            <nav class="navigation">
+                <a href="index.html#about" class="nav-link">Об игре</a>
+                <a href="index.html#team" class="nav-link">Команда</a>
+                <a href="wiki.html" class="nav-link" style="color: var(--accent);">Вики игры</a>
+                <a href="devlog.html" class="nav-link">Девлог</a> <!-- Ссылка на девлог -->
+            </nav>
+            <div id="auth-container"></div>
+        </div>
+    </header>
+
+    <main class="wiki-main">
+        <section class="wiki-hero">
+            <div class="container">
+                <h1 class="wiki-title">База знаний Project Liana</h1>
+                <p class="wiki-subtitle">Изучите характеристики юнитов, построек и экономики для эффективного ведения боя.</p>
+                
+                <!-- Кнопки быстрой фильтрации -->
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Все</button>
+                    <button class="filter-btn" data-filter="units">Юниты</button>
+                    <button class="filter-btn" data-filter="buildings">Здания</button>
+                    <button class="filter-btn" data-filter="production">Производство</button>
+                </div>
+            </div>
+        </section>
+
+<!-- Сетка карточек базы знаний -->
+        <section class="wiki-content">
+            <div class="container">
+                <div class="wiki-grid">
+                    
+                    <!-- Карточка 1: Пехотинец (Юнит) -->
+                    <div class="wiki-card" data-category="units">
+                        <div class="card-image-placeholder">
+                            <span>Рендер Пехоты</span>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-badge badge-unit">Юнит</span>
+                            <h3 class="card-title">Штурмовик</h3>
+                            <p class="card-description">Базовый боевой юнит. Эффективен для ранней разведки карты и защиты начальной базы от налетов.</p>
+                            <div class="card-stats">
+                                <div class="stat-row"><span>Здоровье:</span> <strong>120</strong></div>
+                                <div class="stat-row"><span>Урон:</span> <strong>15</strong></div>
+                                <div class="stat-row"><span>Стоимость:</span> <strong>50 золота</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 2: Золотая Ферма (Производство) -->
+                    <div class="wiki-card" data-category="production">
+                        <div class="card-image-placeholder">
+                            <span>Рендер Фермы</span>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-badge badge-production">Производство</span>
+                            <h3 class="card-title">Ферма грядок</h3>
+                            <p class="card-description">Экономическое строение. На нем работают свободные граждане, обеспечивая вашу экономику постоянным притоком золота.</p>
+                            <div class="card-stats">
+                                <div class="stat-row"><span>Доход:</span> <strong>+10 золота / сек</strong></div>
+                                <div class="stat-row"><span>Стоимость:</span> <strong>100 золота</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 3: Штаб снабжения (Здание) -->
+                    <div class="wiki-card" data-category="buildings">
+                        <div class="card-image-placeholder">
+                            <span>Рендер Базы</span>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-badge badge-building">Здание</span>
+                            <h3 class="card-title">Старый дом</h3>
+                            <p class="card-description">Основное здание города. Предоставляет жилье, что привлекает новых жителей для работы на ваших производствах.</p>
+                            <div class="card-stats">
+                                <div class="stat-row"><span>Эффект:</span> <strong>+1 гражданин в город</strong></div>
+                                <div class="stat-row"><span>Стоимость:</span> <strong>400 золота</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 CriticalSave Studio. Все права сохранены. Разработка игры Project Liana.</p>
+        </div>
+    </footer>
+    <!-- Подключаем JavaScript для фильтрации -->
+    <script src="scripts/wiki-filter.js" defer></script>
+</body>
+</html>
