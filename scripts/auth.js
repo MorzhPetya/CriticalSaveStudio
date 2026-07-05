@@ -63,3 +63,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 });
+
+// ==========================================
+// ЛОГИКА БУРГЕР-МЕНЮ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const burgerMenu = document.getElementById('burger-menu');
+    const navigation = document.getElementById('navigation');
+
+    if (burgerMenu && navigation) {
+        // Открытие/закрытие при клике на бургер
+        burgerMenu.addEventListener('click', () => {
+            navigation.classList.toggle('active');
+            burgerMenu.classList.toggle('open');
+        });
+        
+        // Автоматическое закрытие меню при клике на любую ссылку 
+        // (важно для плавной прокрутки к блоку "Команда" или "Об игре")
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navigation.classList.remove('active');
+                burgerMenu.classList.remove('open');
+            });
+        });
+    }
+});
