@@ -66,6 +66,7 @@ body {
     background: linear-gradient(135deg, #fff, var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    flex-shrink: 0;
 }
 
 .navigation {
@@ -80,6 +81,7 @@ body {
     font-size: 0.95rem;
     font-weight: 500;
     transition: color var(--transition-speed);
+    white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -100,6 +102,15 @@ body {
 .discord-btn:hover {
     background-color: #4f46e5;
     transform: translateY(-2px);
+}
+
+/* Фиксированная ширина контейнера авторизации для предотвращения сдвига вкладок */
+#auth-container {
+    min-width: 170px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 /* ==========================================
@@ -286,12 +297,6 @@ body {
     color: var(--text-muted);
 }
 
-/* Адаптивность для мобильных */
-@media (max-width: 600px) {
-    .navigation {
-        display: none; /* Для полноценного мобильного меню позже добавим кнопку-бургер */
-    }
-}
 /* ==========================================
    6. СТИЛИ ДЛЯ СТРАНИЦЫ ВИКИ (WIKI)
    ========================================== */
@@ -462,6 +467,7 @@ body {
     height: 18px;
     cursor: pointer;
     z-index: 101;
+    flex-shrink: 0;
 }
 
 .burger-menu .bar {
@@ -484,10 +490,12 @@ body {
         height: 70px;
         padding: 0 20px;
         gap: 10px;
+        position: relative;
     }
 
-    /* Профиль ужимаем и сдвигаем правее к бургеру */
+    /* Сбрасываем фиксированную ширину на мобилках */
     #auth-container {
+        min-width: auto !important;
         margin-left: auto;
         margin-right: 15px;
     }
